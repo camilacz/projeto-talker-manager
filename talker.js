@@ -1,7 +1,6 @@
 const fs = require('fs').promises;
+const { SUCCESS, NOT_FOUND } = require('./statusCode');
 
-const SUCCESS = 200;
-const NOT_FOUND = 404;
 const TALKERS_FILE = 'talker.json';
 
 const getTalkers = (_req, res) => {
@@ -18,7 +17,7 @@ const findTalker = (req, res) => {
         (person) => person.id === Number(id),
       );
       if (!talker) {
-        return res.status(NOT_FOUND).json({ message: 'Pessoa palestrante não encontrada' }); 
+        return res.status(NOT_FOUND).json({ message: 'Pessoa palestrante não encontrada' }).end(); 
       }
       return res.status(SUCCESS).json(talker).end();
     })
