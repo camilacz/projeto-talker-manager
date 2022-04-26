@@ -38,11 +38,26 @@ const addTalker = async (req, res) => {
   const json = [...talkers, response];
 
   fs.writeFile(TALKERS_FILE, JSON.stringify(json));
-  return res.status(CREATED).json(response);
+  return res.status(CREATED).json(response).end();
+};
+
+const editTalker = async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+  body.id = Number(id);
+
+  const talkers = await fs.readFile(TALKERS_FILE)
+    .then((data) => JSON.parse(data))
+    .catch((err) => console.log(err.message));
+  
+  const newList = talkers.map((person) => (person.id === Number(id) ? body : person));
+  fs.writeFile(TALKERS_FILE, JSON.stringify(newList));
+  return res.status(SUCCESS).json(body).end();
 };
 
 module.exports = {
   getTalkers,
   findTalker,
   addTalker,
+  editTalker,
 };

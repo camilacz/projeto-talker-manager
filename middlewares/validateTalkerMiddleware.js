@@ -38,7 +38,7 @@ const validateAge = (req, res, next) => {
 const validateTalk = (req, res, next) => {
   const { talk } = req.body;
 
-  if (!talk || !talk.watchedAt || !talk.rate) {
+  if (!talk || !('watchedAt' in talk) || !('rate' in talk)) {
     return res
       .status(BAD_REQUEST)
       .json({
