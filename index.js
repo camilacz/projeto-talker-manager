@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { getTalkers, findTalker } = require('./talker');
 const { postLogin } = require('./login');
+const { validateEmail } = require('./middlewares/validateEmailMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
@@ -18,7 +19,7 @@ app.get('/talker', getTalkers);
 
 app.get('/talker/:id', findTalker);
 
-app.post('/login', postLogin);
+app.post('/login', validateEmail, postLogin);
 
 app.listen(PORT, () => {
   console.log('Online');
