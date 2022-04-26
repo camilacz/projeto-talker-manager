@@ -1,12 +1,13 @@
 const fs = require('fs').promises;
 const { SUCCESS, NOT_FOUND, CREATED, NO_CONTENT } = require('./statusCode');
+const { readTalker, writeTalkers } = require('./utils/touchFile');
 
 const TALKERS_FILE = 'talker.json';
 
-const getTalkers = (_req, res) => {
-  fs.readFile(TALKERS_FILE)
-    .then((data) => res.status(SUCCESS).json(JSON.parse(data)).end())
-    .catch((err) => console.log(err.message));
+// Requisito 1
+const getTalkers = async (_req, res) => {
+  const fileContent = await readTalker();
+  return res.status(SUCCESS).json(fileContent).end();
 };
 
 const findTalker = (req, res) => {
@@ -24,20 +25,16 @@ const findTalker = (req, res) => {
     .catch((err) => console.log(err.message));
 };
 
+// Requisito 5
 const addTalker = async (req, res) => {
   const { body } = req;
-  const talkers = await fs.readFile(TALKERS_FILE)
-    .then((data) => JSON.parse(data))
-    .catch((err) => console.log(err.message));
 
-  const response = {
-    id: talkers.length + 1,
-    ...body,
-  };
+  const talkers = await readTalker();
 
-  const json = [...talkers, response];
+  const response = { id: talkers.length + 1, ...body };
+  const newList = [...talkers, response];
 
-  fs.writeFile(TALKERS_FILE, JSON.stringify(json));
+  writeTalkers(newList);
   return res.status(CREATED).json(response).end();
 };
 
