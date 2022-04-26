@@ -67,10 +67,22 @@ const deleteTalker = async (req, res) => {
   return res.status(NO_CONTENT).end();
 };
 
+const searchTalkers = async (req, res) => {
+  const { q } = req.query;
+  
+  const talkers = await fs.readFile(TALKERS_FILE)
+    .then((data) => JSON.parse(data))
+    .catch((err) => console.log(err.message));
+  
+  const result = talkers.filter(({ name }) => name.includes(q));
+  return res.status(SUCCESS).json(result).end();
+};
+
 module.exports = {
   getTalkers,
   findTalker,
   addTalker,
   editTalker,
   deleteTalker,
+  searchTalkers,
 };

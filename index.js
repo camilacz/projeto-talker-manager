@@ -1,6 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { getTalkers, findTalker, addTalker, editTalker, deleteTalker } = require('./talker');
+const {
+  getTalkers,
+  findTalker,
+  addTalker,
+  editTalker,
+  deleteTalker,
+  searchTalkers,
+} = require('./talker');
 const { postLogin } = require('./login');
 const { validateEmail } = require('./middlewares/validateEmailMiddleware');
 const {
@@ -25,6 +32,8 @@ const PORT = '3000';
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
+
+app.get('/talker/search', validateToken, searchTalkers);
 
 app.get('/talker', getTalkers);
 
