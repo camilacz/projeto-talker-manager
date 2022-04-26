@@ -9,18 +9,19 @@ const {
   searchTalkers,
 } = require('./talker');
 const { postLogin } = require('./login');
-const { validateEmail } = require('./middlewares/validateEmailMiddleware');
+const { validateEmail } = require('./middlewares/validateEmail');
 const {
   validatePassword,
-} = require('./middlewares/validatePasswordMiddleware');
+} = require('./middlewares/validatePassword');
 const {
   validateName,
   validateAge,
   validateTalk,
   validateWatchedAt,
   validateRate,
-} = require('./middlewares/validateTalkerMiddleware');
-const { validateToken } = require('./middlewares/validadeTokenMiddleware');
+} = require('./middlewares/validateTalker');
+const { validateToken } = require('./middlewares/validateToken');
+const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
@@ -64,6 +65,8 @@ app.put(
 app.delete('/talker/:id', validateToken, deleteTalker);
 
 app.post('/login', validateEmail, validatePassword, postLogin);
+
+app.use(errorMiddleware);
 
 app.listen(PORT, () => {
   console.log('Online');
