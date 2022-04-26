@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { getTalkers, findTalker, addTalker, editTalker } = require('./talker');
+const { getTalkers, findTalker, addTalker, editTalker, deleteTalker } = require('./talker');
 const { postLogin } = require('./login');
 const { validateEmail } = require('./middlewares/validateEmailMiddleware');
 const {
@@ -51,6 +51,8 @@ app.put(
   validateRate,
   editTalker,
 );
+
+app.delete('/talker/:id', validateToken, deleteTalker);
 
 app.post('/login', validateEmail, validatePassword, postLogin);
 

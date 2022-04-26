@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-const { SUCCESS, NOT_FOUND, CREATED } = require('./statusCode');
+const { SUCCESS, NOT_FOUND, CREATED, NO_CONTENT } = require('./statusCode');
 
 const TALKERS_FILE = 'talker.json';
 
@@ -55,9 +55,22 @@ const editTalker = async (req, res) => {
   return res.status(SUCCESS).json(body).end();
 };
 
+const deleteTalker = async (req, res) => {
+  const { id } = req.params;
+
+  const talkers = await fs.readFile(TALKERS_FILE)
+    .then((data) => JSON.parse(data))
+    .catch((err) => console.log(err.message));
+
+  const newList = talkers.filter((person) => person.id !== Number(id));
+  fs.writeFile(TALKERS_FILE, JSON.stringify(newList));
+  return res.status(NO_CONTENT).end();
+};
+
 module.exports = {
   getTalkers,
   findTalker,
   addTalker,
   editTalker,
+  deleteTalker,
 };
