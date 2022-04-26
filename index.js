@@ -1,9 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { getTalkers, findTalker } = require('./talker');
+const { getTalkers, findTalker, addTalker } = require('./talker');
 const { postLogin } = require('./login');
 const { validateEmail } = require('./middlewares/validateEmailMiddleware');
-const { validatePassword } = require('./middlewares/validatePasswordMiddleware');
+const {
+  validatePassword,
+} = require('./middlewares/validatePasswordMiddleware');
+const {
+  validateName,
+  validateAge,
+  validateTalk,
+  validateWatchedAt,
+  validateRate,
+} = require('./middlewares/validateTalkerMiddleware');
+const { validateToken } = require('./middlewares/validadeTokenMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,6 +29,17 @@ app.get('/', (_request, response) => {
 app.get('/talker', getTalkers);
 
 app.get('/talker/:id', findTalker);
+
+app.post(
+  '/talker',
+  validateToken,
+  validateName,
+  validateAge,
+  validateTalk,
+  validateWatchedAt,
+  validateRate,
+  addTalker,
+);
 
 app.post('/login', validateEmail, validatePassword, postLogin);
 

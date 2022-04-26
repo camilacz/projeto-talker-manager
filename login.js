@@ -1,4 +1,4 @@
-const { generateToken } = require('./generateToken');
+const { generateToken } = require('./utils/generateToken');
 const { SUCCESS } = require('./statusCode');
 
 const postLogin = (_req, res) => {
