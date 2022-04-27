@@ -12,7 +12,7 @@ const {
   deleteTalker,
   editTalker,
   searchTalkers,
-} = require('../talker');
+} = require('../middlewares/talker');
 
 const router = express.Router();
 

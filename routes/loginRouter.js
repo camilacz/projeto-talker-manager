@@ -1,5 +1,5 @@
 const express = require('express');
-const { logIn } = require('../login');
+const { logIn } = require('../middlewares/login');
 const { validateEmail } = require('../middlewares/validateEmail');
 const { validatePassword } = require('../middlewares/validatePassword');
 
