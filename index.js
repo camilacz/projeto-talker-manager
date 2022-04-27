@@ -20,6 +20,7 @@ const {
 } = require('./middlewares/validateTalker');
 const { validateToken } = require('./middlewares/validateToken');
 const errorMiddleware = require('./middlewares/errorMiddleware');
+const talkerRouter = require('./routes/talkerRouter');
 
 const app = express();
 app.use(bodyParser.json());
@@ -32,31 +33,33 @@ app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
 
-app.get('/talker/search', validateToken, searchTalkers);
+// app.get('/talker/search', validateToken, searchTalkers);
 
-app.get('/talker', getTalkers);
+// app.get('/talker', getTalkers);
 
-app.get('/talker/:id', findTalker);
+// app.get('/talker/:id', findTalker);
 
-app.post(
-  '/talker',
-  validateToken,
-  validateName,
-  validateAge,
-  validateTalk,
-  addTalker,
-);
+// app.post(
+//   '/talker',
+//   validateToken,
+//   validateName,
+//   validateAge,
+//   validateTalk,
+//   addTalker,
+// );
 
-app.put(
-  '/talker/:id',
-  validateToken,
-  validateName,
-  validateAge,
-  validateTalk,
-  editTalker,
-);
+// app.put(
+//   '/talker/:id',
+//   validateToken,
+//   validateName,
+//   validateAge,
+//   validateTalk,
+//   editTalker,
+// );
 
-app.delete('/talker/:id', validateToken, deleteTalker);
+// app.delete('/talker/:id', validateToken, deleteTalker);
+
+app.use('/talker', talkerRouter);
 
 app.post('/login', validateEmail, validatePassword, postLogin);
 
