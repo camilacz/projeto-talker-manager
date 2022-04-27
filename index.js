@@ -17,8 +17,6 @@ const {
   validateName,
   validateAge,
   validateTalk,
-  validateWatchedAt,
-  validateRate,
 } = require('./middlewares/validateTalker');
 const { validateToken } = require('./middlewares/validateToken');
 const errorMiddleware = require('./middlewares/errorMiddleware');
@@ -46,8 +44,6 @@ app.post(
   validateName,
   validateAge,
   validateTalk,
-  validateWatchedAt,
-  validateRate,
   addTalker,
 );
 
@@ -57,8 +53,6 @@ app.put(
   validateName,
   validateAge,
   validateTalk,
-  validateWatchedAt,
-  validateRate,
   editTalker,
 );
 
