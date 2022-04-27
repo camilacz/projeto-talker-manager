@@ -1,10 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { postLogin } = require('./login');
-const { validateEmail } = require('./middlewares/validateEmail');
-const { validatePassword } = require('./middlewares/validatePassword');
-const errorMiddleware = require('./middlewares/errorMiddleware');
 const talkerRouter = require('./routes/talkerRouter');
+const loginRouter = require('./routes/loginRouter');
+const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,7 +17,7 @@ app.get('/', (_request, response) => {
 
 app.use('/talker', talkerRouter);
 
-app.post('/login', validateEmail, validatePassword, postLogin);
+app.use('/login', loginRouter);
 
 app.use(errorMiddleware);
 
