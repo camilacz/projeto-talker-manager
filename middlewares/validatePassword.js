@@ -1,4 +1,4 @@
-const { BAD_REQUEST } = require('../statusCode');
+const { BAD_REQUEST } = require('../utils/statusCode');
 const errorConstructor = require('../utils/errorConstructor');
 
 const validatePassword = (req, res, next) => {

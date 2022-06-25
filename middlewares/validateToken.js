@@ -1,4 +1,4 @@
-const { UNAUTHORIZED } = require('../statusCode');
+const { UNAUTHORIZED } = require('../utils/statusCode');
 const errorConstructor = require('../utils/errorConstructor');
 
 const validateToken = (req, _res, next) => {

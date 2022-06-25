@@ -1,5 +1,5 @@
 const { generateToken } = require('../utils/generateToken');
-const { SUCCESS } = require('../statusCode');
+const { SUCCESS } = require('../utils/statusCode');
 
 const logIn = (_req, res) => {
   const token = generateToken(16);

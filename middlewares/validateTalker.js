@@ -1,4 +1,4 @@
-const { BAD_REQUEST } = require('../statusCode');
+const { BAD_REQUEST } = require('../utils/statusCode');
 const checkDate = require('../utils/checkDate');
 const errorConstructor = require('../utils/errorConstructor');
 

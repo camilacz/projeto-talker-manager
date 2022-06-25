@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-const { SUCCESS, NOT_FOUND, CREATED, NO_CONTENT } = require('../statusCode');
+const { SUCCESS, NOT_FOUND, CREATED, NO_CONTENT } = require('../utils/statusCode');
 const { readTalker, writeTalkers } = require('../utils/touchFile');
 
 const TALKERS_FILE = 'talker.json';
